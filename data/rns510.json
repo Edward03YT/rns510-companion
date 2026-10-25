@@ -1,0 +1,286 @@
+{
+  "units": [
+    {
+      "id": "rns510-1t0-035-680-b",
+      "partNumber": "1T0 035 680 B",
+      "names": ["RNS 510", "Skoda Columbus", "SEAT Media System"],
+      "hwLabels": [],
+      "notes": "Revision B factory navigation unit"
+    },
+    {
+      "id": "rns510-1t0-035-680-c",
+      "partNumber": "1T0 035 680 C",
+      "names": ["RNS 510", "Skoda Columbus", "SEAT Media System"],
+      "hwLabels": ["H50 2840"],
+      "notes": "Revision C unit with LED display on later models"
+    }
+  ],
+  "firmwares": [
+    {
+      "id": "fw-5238-josi",
+      "label": "5238 (Josi modded)",
+      "base": "5238",
+      "variant": "modded",
+      "wipesMaps": true,
+      "features": ["Video In Motion unlocked (common in community builds, not guaranteed)"],
+      "caveats": ["Wipes existing maps partition; maps must be reinstalled after update"]
+    },
+    {
+      "id": "fw-5238-orig",
+      "label": "5238 (original)",
+      "base": "5238",
+      "variant": "original",
+      "wipesMaps": true,
+      "caveats": ["Does not install on every hardware revision; older units may reject or fail"]
+    },
+    {
+      "id": "fw-5269",
+      "label": "5269",
+      "base": "5269",
+      "variant": "modded",
+      "wipesMaps": false,
+      "caveats": ["Reported unstable on certain older revisions"]
+    },
+    {
+      "id": "fw-5274",
+      "label": "5274",
+      "base": "5274",
+      "variant": "modded",
+      "wipesMaps": false,
+      "caveats": ["Josi modded variant reported working with SD card map update method"]
+    }
+  ],
+  "maps": [
+    {
+      "id": "map-west-europe-v15",
+      "region": "West Europe",
+      "version": "V15"
+    },
+    {
+      "id": "map-west-europe-v16",
+      "region": "West Europe",
+      "version": "V16"
+    },
+    {
+      "id": "map-east-europe-v17",
+      "region": "East Europe",
+      "version": "V17",
+      "notes": "East Europe map database volume V17"
+    }
+  ],
+  "rules": [
+    {
+      "unitId": "*",
+      "firmwareId": "fw-5238-josi",
+      "status": "works",
+      "confidence": "community-reported",
+      "note": "Modded 5238 by Josi is widely reported to install and run stably across both older and newer RNS 510 hardware revisions. Note that installing it wipes previously installed maps.",
+      "sources": [
+        {
+          "title": "Motor-Talk RNS 510 Firmware Update Thread",
+          "url": "https://www.motor-talk.de/forum/rns-510-firmware-update-t5157979.html"
+        },
+        {
+          "title": "Altechnative RNS 510 Firmware Guide",
+          "url": "https://altechnative.net/author/altechnative/"
+        }
+      ]
+    },
+    {
+      "unitId": "*",
+      "firmwareId": "fw-5238-orig",
+      "status": "unstable",
+      "confidence": "community-reported",
+      "note": "Original factory 5238 firmware does not run on every hardware revision and may fail or cause gateway battery drain on older revisions.",
+      "sources": [
+        {
+          "title": "Motor-Talk RNS 510 Firmware Update Thread",
+          "url": "https://www.motor-talk.de/forum/rns-510-firmware-update-t5157979.html"
+        }
+      ]
+    },
+    {
+      "unitId": "*",
+      "firmwareId": "fw-5269",
+      "status": "unknown",
+      "confidence": "community-reported",
+      "note": "Some units cannot be updated beyond 5238, and some hardware revisions are reported unstable beyond 5269.",
+      "sources": [
+        {
+          "title": "Altechnative RNS 510 Firmware Guide",
+          "url": "https://altechnative.net/author/altechnative/"
+        }
+      ]
+    },
+    {
+      "unitId": "*",
+      "firmwareId": "fw-5274",
+      "mapId": "map-west-europe-v15",
+      "status": "works",
+      "confidence": "community-reported",
+      "note": "Firmware 5274 (Josi) reported working with map V15 for SD card map update method.",
+      "sources": [
+        {
+          "title": "Motor-Talk RNS 510 Kartenupdate per SD-Karte",
+          "url": "https://www.motor-talk.de/blogs/collossus/rns510-kartenupdate-per-sd-karte-t6203256.html"
+        }
+      ]
+    },
+    {
+      "unitId": "*",
+      "firmwareId": "fw-5238-josi",
+      "mapId": "map-west-europe-v15",
+      "status": "works",
+      "confidence": "community-reported",
+      "note": "Firmware 5238 reported working with West Europe maps V15.",
+      "sources": [
+        {
+          "title": "Motor-Talk RNS 510 Kartenupdate per SD-Karte",
+          "url": "https://www.motor-talk.de/blogs/collossus/rns510-kartenupdate-per-sd-karte-t6203256.html"
+        },
+        {
+          "title": "VWCaliforniaClub Forum RNS 510 Discussion",
+          "url": "https://vwcaliforniaclub.com/goto/post?id=210299"
+        }
+      ]
+    },
+    {
+      "unitId": "*",
+      "firmwareId": "fw-5238-josi",
+      "mapId": "map-west-europe-v16",
+      "status": "works",
+      "confidence": "community-reported",
+      "note": "Firmware 5238 reported working with West Europe maps V16.",
+      "sources": [
+        {
+          "title": "Motor-Talk RNS 510 Kartenupdate per SD-Karte",
+          "url": "https://www.motor-talk.de/blogs/collossus/rns510-kartenupdate-per-sd-karte-t6203256.html"
+        },
+        {
+          "title": "VWCaliforniaClub Forum RNS 510 Discussion",
+          "url": "https://vwcaliforniaclub.com/goto/post?id=210299"
+        }
+      ]
+    },
+    {
+      "unitId": "rns510-1t0-035-680-c",
+      "mapId": "map-east-europe-v17",
+      "status": "unknown",
+      "confidence": "unverified",
+      "note": "No verified test report for East Europe V17 on 1T0 035 680 C yet; status is unknown pending community verification.",
+      "sources": [
+        {
+          "title": "RNS 510 Companion Community Datapoints",
+          "url": "https://github.com/Edward03YT/rns510-companion"
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    {
+      "id": "warning-battery-charger",
+      "appliesTo": "all",
+      "text": {
+        "en": "Connect a battery charger or keep the engine running (outdoors) during any firmware or map install. Long installs and under-voltage during install are a real risk of bricking.",
+        "ro": "Conectează un redresor auto sau lasă motorul pornit (în aer liber) pe durata oricărei instalări de firmware sau hărți. Durata mare și scăderea tensiunii reprezintă un risc real de blocare a unității."
+      },
+      "sources": [
+        {
+          "title": "Altechnative Firmware & Update Guide",
+          "url": "https://altechnative.net/author/altechnative/"
+        }
+      ]
+    },
+    {
+      "id": "warning-cd-speed",
+      "appliesTo": "all",
+      "text": {
+        "en": "Burn firmware discs on high quality CD-R media at the lowest possible speed (e.g. 2x/4x) and verify the disc checksum after burning.",
+        "ro": "Scrie discurile de firmware pe medii CD-R de bună calitate la cea mai mică viteză posibilă (de ex. 2x/4x) și verifică integritatea discului după scriere."
+      },
+      "sources": [
+        {
+          "title": "Altechnative Firmware & Update Guide",
+          "url": "https://altechnative.net/author/altechnative/"
+        }
+      ]
+    },
+    {
+      "id": "warning-combo-buttons",
+      "appliesTo": "all",
+      "text": {
+        "en": "Firmware update mode is entered with a three-button combo, but button labels differ between units (SETUP + eject + i/speaker, MIC, INFO); verify the combination for your specific unit.",
+        "ro": "Modul de actualizare firmware se accesează printr-o combinație de trei butoane, dar inscripțiile diferă între versiuni (SETUP + eject + i/difuzor, MIC, INFO); verifică tastele specifice unității tale."
+      },
+      "sources": [
+        {
+          "title": "Altechnative Firmware & Update Guide",
+          "url": "https://altechnative.net/author/altechnative/"
+        }
+      ]
+    },
+    {
+      "id": "warning-map-interrupt",
+      "appliesTo": "map",
+      "text": {
+        "en": "Do not interrupt a map install. An interrupted install can leave an incomplete map database on the unit; the safe fix is to reinstall the full map.",
+        "ro": "Nu întrerupe instalarea hărților. O instalare întreruptă lasă o bază de date incompletă pe unitate; soluția sigură este reinstalarea completă a hărții."
+      },
+      "sources": [
+        {
+          "title": "Motor-Talk RNS 510 Kartenupdate per SD-Karte",
+          "url": "https://www.motor-talk.de/blogs/collossus/rns510-kartenupdate-per-sd-karte-t6203256.html"
+        }
+      ]
+    },
+    {
+      "id": "warning-gps-antenna",
+      "appliesTo": "map",
+      "confidence": "community-reported",
+      "text": {
+        "en": "A wrong or default GPS position after a map update can be caused by an incomplete map install, but also by GPS antenna problems; check satellite count in the unit's test menu before reinstalling.",
+        "ro": "O poziție GPS eronată după actualizarea hărților poate fi cauzată de o instalare incompletă, dar și de defecțiuni ale antenei GPS; verifică numărul de sateliți recepționați în meniul secret de test înainte de a reinstala."
+      },
+      "sources": [
+        {
+          "title": "VWCaliforniaClub Satnav Problem Discussion",
+          "url": "https://mail.vwcaliforniaclub.com/threads/satnav-problem.8462"
+        },
+        {
+          "title": "Motor-Talk RNS 510 Hacks Thread",
+          "url": "https://www.motor-talk.de/forum/rns510-hacks-t3750904.html"
+        }
+      ]
+    },
+    {
+      "id": "warning-map-wipe",
+      "appliesTo": "wipesMaps",
+      "text": {
+        "en": "Installing this firmware will wipe existing installed navigation maps from the hard drive partition; maps will need to be reinstalled afterwards.",
+        "ro": "Instalarea acestui firmware va șterge hărțile de navigație existente de pe partiția hard disk-ului; hărțile vor trebui reinstalate ulterior."
+      },
+      "sources": [
+        {
+          "title": "Altechnative Firmware & Update Guide",
+          "url": "https://altechnative.net/author/altechnative/"
+        },
+        {
+          "title": "Motor-Talk RNS 510 Kartenupdate per SD-Karte",
+          "url": "https://www.motor-talk.de/blogs/collossus/rns510-kartenupdate-per-sd-karte-t6203256.html"
+        }
+      ]
+    }
+  ],
+  "datapoints": [
+    {
+      "partNumber": "1T0 035 680 C",
+      "hw": "H50 2840",
+      "firmware": "5238 (Josi modded)",
+      "map": "East Europe V17",
+      "result": "map install was interrupted early; unit shows map but GPS position appears in the wrong country; reinstall pending",
+      "confidence": "unverified",
+      "reportedBy": "Maintainer test",
+      "date": "2026-10-25"
+    }
+  ]
+}
