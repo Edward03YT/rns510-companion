@@ -1,35 +1,114 @@
 # RNS 510 Companion
 
+[![CI](https://github.com/Edward03YT/rns510-companion/actions/workflows/ci.yml/badge.svg)](https://github.com/Edward03YT/rns510-companion/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
 A fast, lightweight, privacy-first companion web application for Volkswagen RNS 510 navigation head units and VCDS Auto-Scan diagnostic logs.
 
 [**Versiunea în limba română (README_RO.md)**](./README_RO.md)
 
 ---
 
-## Features
+## Overview & Architecture
 
-1. **VCDS Log Analyzer**
-   - Drag & drop or paste your VCDS Auto-Scan `.txt` logs.
-   - 100% in-browser parsing (no data is ever sent to any remote server).
-   - Default VIN (`WVWZZZ1KZ*W******`) and license plate anonymization.
-   - Event clustering (grouping faults that occurred within ±15 minutes at the same mileage).
-   - Timestamp reliability heuristics (flags stale dates, inconsistent clock entries, and default factory dates).
-   - Duplicate module detection (e.g. `Address 37` and `Address 56` referencing the same physical unit).
-   - Plain-English and Romanian explanations for fault codes.
-   - One-click clean Markdown and printable PDF export.
+**rns510-companion** is built entirely with **React 19, Next.js (App Router), TypeScript (`strict`), and Tailwind CSS**.
 
-2. **RNS 510 Compatibility Checker**
-   - Check firmware and map upgrade paths for your unit part number (e.g., `1T0 035 680 C`) and hardware revision (`H50 2840`).
-   - Quick-fill by pasting an `Address 37` or `Address 56` block from your VCDS scan.
-   - Strictly sourced warnings (battery charger requirement, map wipe caveats, GPS antenna checks).
-   - Sourced data model with transparent confidence labels (`tested-by-maintainer`, `community-reported`, `unverified`).
-   - Direct GitHub issue reporting for community test results.
+- **No backend, no database, no API routes.**
+- **100% Client-Side Privacy:** All log parsing, heuristics, and compatibility rules run inside the user's browser via web APIs (`FileReader`, standard DOM). Diagnostic logs, VINs, and serial numbers are never uploaded to any remote server.
+- **Deploy Target:** Fully static / serverless on **Vercel** or any static web host.
 
 ---
 
-## Privacy Guarantee
+## Main Tools
 
-All log parsing, fault analysis, and compatibility checks take place **strictly inside your web browser**. No diagnostic logs, serial numbers, VINs, or license plates are uploaded or transmitted anywhere.
+### 1. VCDS Log Analyzer (`/analyzer`)
+- **Dual Input:** Drag-and-drop your VCDS Auto-Scan `.txt` file (supports UTF-8 with automatic fallback to Windows-1252 ANSI) or paste raw text. Includes an instant "Load sample scan" button.
+- **Privacy Anonymization Toggle (Default ON):** Automatically masks vehicle identification numbers (`WVWZZZ1KZ*W******`) and license plates (`XX00XXX`) throughout the UI and exports.
+- **Correlated Event Clustering:** Automatically identifies and groups multi-module fault entries occurring at the same date and mileage within a ±15-minute window (e.g. CAN gateway communication loss followed by navigation/radio disconnects).
+- **Timestamp Reliability Engine:** Detects and flags:
+  - `stale`: Fault entries stored more than 180 days before the scan date.
+  - `inconsistent`: Freeze-frame timestamps occurring after the scan datetime, or freeze-frame mileages exceeding odometer scan mileage.
+  - `default-date`: Unset / factory clock dates (e.g. `2021.03.15` appearing across 3+ distinct vehicle mileages).
+- **Duplicate Unit Linking:** Identifies duplicated addresses representing the same physical head unit (e.g. `Address 37 Navigation` and `Address 56 Radio` sharing identical VCID/serial numbers).
+- **Severity Classification:** Visual icon + text badges (`CHECK`, `LOW`, `INFO`, `UNKNOWN`) with bilingual explanations and actionable suggestions.
+- **Exporting:** One-click "Copy as Markdown" and browser-native "Print / Save as PDF" via custom print stylesheets.
+
+### 2. RNS 510 Compatibility Checker (`/compat`)
+- **Dual Input:**
+  - **Manual Form:** Look up any part number (e.g. `1T0 035 680 C`) and hardware revision (e.g. `H50 2840`), target firmware (e.g. `5238 (Josi modded)`), and target map volume.
+  - **Paste VCDS Block:** Paste an `Address 37` or `Address 56` block directly from your Auto-Scan to auto-extract the part number and hardware revision.
+- **Base Number Suffix Selector:** Entering a base part number (e.g. `1T0 035 680`) prompts one-click selection between cataloged revisions (`B` and `C`).
+- **Verdicts & Confidence Levels:**
+  - Statuses: `WORKS`, `UNSTABLE`, `INCOMPATIBLE`, `UNKNOWN`.
+  - Confidence: `tested-by-maintainer`, `community-reported`, `unverified`.
+  - Never guesses: unmapped combinations are strictly labeled `UNKNOWN`.
+- **Sourced Caveats & Warnings:**
+  - Battery charger / engine running requirement during flashing.
+  - Slow-speed CD-R burning requirements.
+  - Three-button bootloader combo notice (`SETUP + Eject + Info/Mic`).
+  - Map partition erase alert on 5238 installations.
+  - Map install interruption recovery procedures and GPS antenna test menu verification.
+- **Community Datapoint Registry:** Table of real-world test reports with direct prefilled GitHub issue reporting.
+
+---
+
+## Deploying to Vercel
+
+### Option 1: One-Click Deploy
+Click the button below to fork and deploy directly to Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+### Option 2: CLI Deploy
+Using `npm` or `pnpm`:
+```bash
+# Using npm
+npm install -g vercel
+vercel
+
+# Using pnpm
+pnpm dlx vercel
+```
+
+---
+
+## Local Development & Testing
+
+### Prerequisites
+- Node.js 20+ (v22+ recommended)
+- `npm` or `pnpm` (both fully supported)
+
+### Commands
+
+```bash
+# Install dependencies
+npm install
+# or
+pnpm install
+
+# Start development server
+npm run dev
+# or
+pnpm dev
+
+# Run Vitest test suite (23 unit tests)
+npm test
+# or
+pnpm test
+
+# Run ESLint check
+npm run lint
+
+# Run TypeScript strict type check
+npm run typecheck
+
+# Validate compatibility and fault rules schemas
+npm run validate:data
+
+# Production build check
+npm run build
+```
 
 ---
 
@@ -42,50 +121,6 @@ All log parsing, fault analysis, and compatibility checks take place **strictly 
 
 ---
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 20+ (v22+ recommended)
-- pnpm 10+ (v12 supported)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/your-username/rns510-companion.git
-cd rns510-companion
-
-# Install dependencies
-pnpm install
-
-# Start local development server
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser.
-
-### Verification & Testing
-
-```bash
-# Run Vitest tests
-pnpm test
-
-# Run ESLint
-pnpm lint
-
-# Run TypeScript check
-pnpm typecheck
-
-# Validate data schema
-pnpm validate:data
-
-# Production build
-pnpm build
-```
-
----
-
 ## License
 
-[MIT](./LICENSE)
+[MIT](./LICENSE) &copy; 2026 RNS 510 Companion Contributors

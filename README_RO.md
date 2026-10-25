@@ -1,91 +1,126 @@
 # RNS 510 Companion (Română)
 
+[![CI](https://github.com/Edward03YT/rns510-companion/actions/workflows/ci.yml/badge.svg)](https://github.com/Edward03YT/rns510-companion/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
 O aplicație web rapidă, sigură și confidențială dedicată posesorilor de unități de navigație Volkswagen RNS 510 și analizei jurnalelor de diagnoză VCDS Auto-Scan.
 
 [**English Version (README.md)**](./README.md)
 
 ---
 
-## Funcționalități principale
+## Arhitectură și Confidențialitate
 
-1. **Analizator Jurnal VCDS**
-   - Trage și plasează (drag & drop) sau lipește fișierul Auto-Scan `.txt` din VCDS.
-   - Parsare 100% în browser (niciun bit de date nu părăsește dispozitivul tău).
-   - Anonimizare automată pentru serie de șasiu (VIN) și număr de înmatriculare.
-   - Gruparea codurilor de eroare în clustere de evenimente (erori stocate la același kilometraj în interval de ±15 minute).
-   - Euristică pentru validarea amprentelor temporale (identifică date expirate, ore inconsistente și ceasuri resetate la data implicită din fabrică).
-   - Detecție module duplicate (de ex. `Address 37 Navigation` și `Address 56 Radio` reprezentând aceeași unitate fizică).
-   - Explicații clare și sugestii de verificare în română și engleză.
-   - Export simplu în format Markdown sau salvare ca PDF pentru tipar.
+**rns510-companion** este dezvoltat integral cu **React 19, Next.js (App Router), TypeScript (`strict`) și Tailwind CSS**.
 
-2. **Verificator Compatibilitate RNS 510**
-   - Verifică opțiunile de actualizare firmware și hărți în funcție de codul de piesă (ex: `1T0 035 680 C`) și versiunea hardware (`H50 2840`).
-   - Autocompletare instantă prin lipirea blocului `Address 37` sau `Address 56` din scanarea VCDS.
-   - Avertismente cu surse citate (necesitatea conectării unui redresor, ștergerea automată a hărților vechi, diagnostic antenă GPS).
-   - Niveluri transparente de încredere a datelor (`tested-by-maintainer`, `community-reported`, `unverified`).
-   - Formular de raportare rezultate pe GitHub pentru membrii comunității.
+- **Fără backend, fără baze de date, fără rute API pe server.**
+- **Confidențialitate 100% în Browser:** Parsarea jurnalelor, euristica și regulile de compatibilitate se execută exclusiv pe dispozitivul tău prin intermediul API-urilor native de browser (`FileReader`, DOM). Jurnalele de diagnoză, seriile VIN și codurile de componente nu sunt transmise niciodată pe vreun server la distanță.
+- **Compatibil Vercel:** Poate fi implementat instantaneu pe Vercel ca site static de mare viteză.
 
 ---
 
-## Garanție de confidențialitate
+## Instrumente Principale
 
-Toată parsarea și analiza au loc **exclusiv în browserul tău**. Niciun jurnal, cod VIN, număr de înmatriculare sau serie nu este trimis pe vreun server la distanță.
+### 1. Analizator Jurnal VCDS (`/analyzer`)
+- **Încărcare Flexibilă:** Trage și plasează fișierul Auto-Scan `.txt` (suportă codare UTF-8 cu trecere automată la Windows-1252 ANSI) sau lipește textul direct. Include butonul "Încarcă scanare demonstrativă".
+- **Anonimizare Automată (Activat implicit):** Maschează automat seria de șasiu (`WVWZZZ1KZ*W******`) și numărul de înmatriculare (`XX00XXX`) atât în interfață, cât și în rapoartele exportate.
+- **Clustere de Evenimente Corelate:** Identifică și grupează automat erorile din module diferite produse la același kilometraj și dată într-un interval scurt de ±15 minute (ex: întreruperea comunicării pe magistrala CAN urmată de deconectarea modulului de navigație).
+- **Detecție Timestamp Nesigur:**
+  - `stale`: Erori stocate cu mai mult de 180 de zile înainte de data scanării.
+  - `inconsistent`: Date din freeze-frame cu oră ulterioară scanării sau kilometraj mai mare decât odometrul curent.
+  - `default-date`: Ceasuri neregulate / resetate din fabrică (ex: data `2021.03.15` repetată la 4 kilometraje diferite).
+- **Corelare Module Duplicate:** Detectează adresele care reprezintă aceeași unitate fizică (ex: `Address 37 Navigation` și `Address 56 Radio` având aceeași serie și VCID).
+- **Clasificare Severitate:** Ecusoane vizuale cu pictogramă + text (`CHECK`, `LOW`, `INFO`, `UNKNOWN`), însoțite de explicații clare și recomandări în limba română.
+- **Export Simplu:** Copiere directă ca raport Markdown și tipărire sau salvare ca PDF prin stylesheet optimizat pentru tipar.
+
+### 2. Verificator Compatibilitate RNS 510 (`/compat`)
+- **Două Moduri de Căutare:**
+  - **Formular Manual:** Căutare după codul piesei (ex: `1T0 035 680 C`), versiunea hardware (`H50 2840`), versiunea dorită de firmware (ex: `5238 (Josi modded)`) și harta dorită.
+  - **Lipire Bloc VCDS:** Lipește blocul `Address 37` sau `Address 56` din Auto-Scan pentru autocompletarea automată a codului și a reviziei hardware.
+- **Selector Rapid de Sufix:** Dacă introduci codul de bază fără litera de final (ex: `1T0 035 680`), aplicația îți oferă opțiunea de a selecta rapid între versiunile `B` și `C`.
+- **Decizii și Niveluri de Încredere:**
+  - Stări: `FUNCȚIONEAZĂ`, `INSTABIL`, `INCOMPATIBIL`, `NECUNOSCUT`.
+  - Niveluri de încredere: `testat pe unitate fizică`, `raportat în comunitate`, `neverificat`.
+  - Fără presupuneri: combinațiile nedocumentate sunt marcate strict drept `NECUNOSCUT`.
+- **Avertismente cu Surse Citate:**
+  - Obligativitatea conectării unui redresor auto pe durata resoftării.
+  - Cerințe pentru scrierea CD-urilor la viteză redusă (2x / 4x).
+  - Combinația de taste pentru modul bootloader (`SETUP + Eject + Info/Mic`).
+  - Avertisment privind ștergerea partiției de hărți la instalarea versiunii 5238.
+  - Verificarea antenei GPS și soluții pentru instalări de hărți întrerupte.
+- **Tabel Datapoints din Comunitate:** Listă de rapoarte reale cu opțiunea de trimitere a unui nou raport precompletat pe GitHub.
+
+---
+
+## Implementare pe Vercel
+
+### Opțiunea 1: Implementare cu 1-Click
+Apasă butonul de mai jos pentru a duplica și implementa direct pe Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+### Opțiunea 2: Implementare prin CLI
+Folosind `npm` sau `pnpm`:
+```bash
+# Folosind npm
+npm install -g vercel
+vercel
+
+# Folosind pnpm
+pnpm dlx vercel
+```
+
+---
+
+## Dezvoltare Locală și Testare
+
+### Cerințe de sistem
+- Node.js 20+ (recomandat v22+)
+- `npm` sau `pnpm` (ambele sunt complet suportate)
+
+### Comenzi utile
+
+```bash
+# Instalare dependențe
+npm install
+# sau
+pnpm install
+
+# Rulare server local de dezvoltare
+npm run dev
+# sau
+pnpm dev
+
+# Rulare suita de teste Vitest (23 teste unitare)
+npm test
+# sau
+pnpm test
+
+# Verificare linting cu ESLint
+npm run lint
+
+# Verificare tipuri TypeScript (strict)
+npm run typecheck
+
+# Validare structură date JSON împotriva schemelor Zod
+npm run validate:data
+
+# Compilare de producție
+npm run build
+```
 
 ---
 
 ## Declinare de responsabilitate
 
-- **Doar scop informativ:** Această aplicație nu constituie o diagnoză auto profesională.
-- **Risc de rescriere firmware:** Rescrierea firmware-ului poate bloca permanent unitatea de navigație (brick) și se efectuează exclusiv pe propria răspundere.
-- **Neafiliere:** Acest proiect nu este afiliat cu Volkswagen AG sau Ross-Tech LLC.
-- **Fără fișiere:** Acest instrument nu găzduiește, nu distribuie și nu oferă linkuri către fișiere descărcabile de firmware sau hărți protejate prin drepturi de autor.
-
----
-
-## Pornire rapidă
-
-### Cerințe de sistem
-
-- Node.js 20+ (recomandat v22+)
-- pnpm 10+ (suportă v12)
-
-### Instalare și rulare
-
-```bash
-# Clonează depozitul
-git clone https://github.com/your-username/rns510-companion.git
-cd rns510-companion
-
-# Instalează dependențele
-pnpm install
-
-# Pornește serverul de dezvoltare
-pnpm dev
-```
-
-Deschide [http://localhost:3000](http://localhost:3000) în browser.
-
-### Verificare și testare
-
-```bash
-# Rulare teste Vitest
-pnpm test
-
-# Verificare linting ESLint
-pnpm lint
-
-# Verificare tipuri TypeScript
-pnpm typecheck
-
-# Validare structură date JSON
-pnpm validate:data
-
-# Compilare producție
-pnpm build
-```
+- **Doar în scop informativ:** Acest instrument nu oferă o diagnoză auto profesională.
+- **Risc de blocare (brick):** Rescrierea firmware-ului implică riscuri tehnice reale și se efectuează exclusiv pe răspunderea utilizatorului.
+- **Neafiliat:** Proiectul nu este afiliat cu Volkswagen AG sau Ross-Tech LLC.
+- **Fără fișiere:** Această aplicație nu găzduiește, nu distribuie și nu furnizează linkuri pentru descărcarea de firmware sau hărți supuse drepturilor de autor.
 
 ---
 
 ## Licență
 
-[MIT](./LICENSE)
+[MIT](./LICENSE) &copy; 2026 RNS 510 Companion Contributors
