@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RNS 510 Companion
+
+A fast, lightweight, privacy-first companion web application for Volkswagen RNS 510 navigation head units and VCDS Auto-Scan diagnostic logs.
+
+[**Versiunea în limba română (README_RO.md)**](./README_RO.md)
+
+---
+
+## Features
+
+1. **VCDS Log Analyzer**
+   - Drag & drop or paste your VCDS Auto-Scan `.txt` logs.
+   - 100% in-browser parsing (no data is ever sent to any remote server).
+   - Default VIN (`WVWZZZ1KZ*W******`) and license plate anonymization.
+   - Event clustering (grouping faults that occurred within ±15 minutes at the same mileage).
+   - Timestamp reliability heuristics (flags stale dates, inconsistent clock entries, and default factory dates).
+   - Duplicate module detection (e.g. `Address 37` and `Address 56` referencing the same physical unit).
+   - Plain-English and Romanian explanations for fault codes.
+   - One-click clean Markdown and printable PDF export.
+
+2. **RNS 510 Compatibility Checker**
+   - Check firmware and map upgrade paths for your unit part number (e.g., `1T0 035 680 C`) and hardware revision (`H50 2840`).
+   - Quick-fill by pasting an `Address 37` or `Address 56` block from your VCDS scan.
+   - Strictly sourced warnings (battery charger requirement, map wipe caveats, GPS antenna checks).
+   - Sourced data model with transparent confidence labels (`tested-by-maintainer`, `community-reported`, `unverified`).
+   - Direct GitHub issue reporting for community test results.
+
+---
+
+## Privacy Guarantee
+
+All log parsing, fault analysis, and compatibility checks take place **strictly inside your web browser**. No diagnostic logs, serial numbers, VINs, or license plates are uploaded or transmitted anywhere.
+
+---
+
+## Disclaimers
+
+- **Informational only:** This tool does not provide professional vehicle diagnostics.
+- **Flashing risk:** Flashing firmware can permanently brick your head unit and is done strictly at your own risk.
+- **Non-affiliation:** This project is not affiliated with Volkswagen AG or Ross-Tech LLC.
+- **No file downloads:** This tool does not host, distribute, or provide download links for proprietary firmware or map files.
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+ (v22+ recommended)
+- pnpm 10+ (v12 supported)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Clone the repository
+git clone https://github.com/your-username/rns510-companion.git
+cd rns510-companion
+
+# Install dependencies
+pnpm install
+
+# Start local development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Verification & Testing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Run Vitest tests
+pnpm test
 
-## Learn More
+# Run ESLint
+pnpm lint
 
-To learn more about Next.js, take a look at the following resources:
+# Run TypeScript check
+pnpm typecheck
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Validate data schema
+pnpm validate:data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Production build
+pnpm build
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[MIT](./LICENSE)

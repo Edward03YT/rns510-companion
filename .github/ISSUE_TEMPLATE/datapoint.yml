@@ -1,0 +1,76 @@
+name: RNS 510 Compatibility Datapoint
+description: Submit real-world firmware or map upgrade results for RNS 510 units
+title: "[Datapoint]: <Part Number> - <Firmware> / <Map>"
+labels: ["datapoint"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for contributing real-world test data to the RNS 510 Companion community database!
+        Please fill out all fields as accurately as possible. Never share copyrighted firmware/map files or download links.
+
+  - type: input
+    id: part_number
+    attributes:
+      label: Unit Part Number
+      description: Exact part number from unit label or VCDS (e.g. 1T0 035 680 C)
+      placeholder: "1T0 035 680 C"
+    validations:
+      required: true
+
+  - type: input
+    id: hw_label
+    attributes:
+      label: Hardware / Component Label
+      description: Hardware revision or VCDS Component line (e.g. H50 2840, RNS-MID H04)
+      placeholder: "H50 2840"
+    validations:
+      required: false
+
+  - type: input
+    id: firmware
+    attributes:
+      label: Installed / Target Firmware
+      description: Firmware version installed (e.g. 5238 Josi modded, 5238 original, 5274)
+      placeholder: "5238 (Josi modded)"
+    validations:
+      required: true
+
+  - type: input
+    id: map
+    attributes:
+      label: Installed Map Version
+      description: Map volume/version (e.g. West Europe V16, East Europe V17)
+      placeholder: "East Europe V17"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: result
+    attributes:
+      label: Test Result
+      options:
+        - "Working completely with no known issues"
+        - "Working with caveats / minor issues (describe below)"
+        - "Failed install / bricked / rolled back"
+        - "Incomplete install / corrupted maps"
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: What exactly was done?
+      description: Describe the installation process, media used (CD-R speed, SD card size), power source, and observations.
+      placeholder: "Burned CD-R at 4x with ImgBurn. Connected 12V 20A charger. Unit updated in 50 minutes. Maps were erased as expected..."
+    validations:
+      required: true
+
+  - type: input
+    id: evidence
+    attributes:
+      label: Evidence or forum source link
+      description: Forum thread, blog post, or photo evidence link. Do NOT link to firmware/map downloads.
+      placeholder: "https://www.motor-talk.de/forum/..."
+    validations:
+      required: false
