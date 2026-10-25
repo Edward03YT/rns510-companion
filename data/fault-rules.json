@@ -1,0 +1,142 @@
+[
+  {
+    "code": "01520",
+    "module": "09",
+    "severity": "low",
+    "explanation": {
+      "en": "Intermittent signal from the rain and light sensor (G397).",
+      "ro": "Semnal intermitent de la senzorul de ploaie și lumină (G397)."
+    },
+    "suggestion": {
+      "en": "Check if automatic wipers/lights misbehave; if they work, likely a connector or sensor contact issue.",
+      "ro": "Verifică dacă ștergătoarele sau luminile automate au comportament anormal; dacă funcționează, este probabil o problemă de conector sau contact la senzor."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "01134",
+    "module": "09",
+    "severity": "info",
+    "explanation": {
+      "en": "A fault is stored for the alarm horn (H12) with no detail.",
+      "ro": "Eroare stocată pentru goarna de alarmă (H12) fără alte detalii."
+    },
+    "suggestion": {
+      "en": "Check that the alarm horn works; may be a stored event.",
+      "ro": "Verifică dacă goarna de alarmă funcționează; poate fi doar un eveniment vechi stocat."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "01300",
+    "module": "19",
+    "severity": "info",
+    "explanation": {
+      "en": "Intermittent loss of communication with the navigation control module.",
+      "ro": "Pierdere intermitentă de comunicare cu modulul de comandă pentru navigație."
+    },
+    "suggestion": {
+      "en": "Common when the head unit is powered off, reflashed or the supply dips; clear and rescan to see if it returns.",
+      "ro": "Frecvent când unitatea este oprită, rescrisă sau tensiunea de alimentare scade; șterge eroarea și rescanază pentru a vedea dacă reapare."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "01304",
+    "module": "19",
+    "severity": "info",
+    "explanation": {
+      "en": "Intermittent loss of communication with the radio.",
+      "ro": "Pierdere intermitentă de comunicare cu radioul."
+    },
+    "suggestion": {
+      "en": "Same as above; part of the same event if timestamps match.",
+      "ro": "La fel ca mai sus; parte din același eveniment dacă orele coincid."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "03272",
+    "module": "19",
+    "severity": "info",
+    "explanation": {
+      "en": "Intermittent loss of communication with the audio interface module.",
+      "ro": "Pierdere intermitentă de comunicare cu modulul interfeței audio."
+    },
+    "suggestion": {
+      "en": "Same as above.",
+      "ro": "La fel ca mai sus."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "01523",
+    "module": "37",
+    "severity": "info",
+    "explanation": {
+      "en": "Open circuit on the phone microphone (R38).",
+      "ro": "Circuit deschis la microfonul pentru telefon (R38)."
+    },
+    "suggestion": {
+      "en": "Only relevant if you use hands-free calls; check mic and connector, or ignore if no mic is installed.",
+      "ro": "Relevant doar dacă folosești apeluri hands-free; verifică microfonul și conectorul, sau ignoră dacă nu este instalat microfon."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "00446",
+    "module": "37",
+    "severity": "info",
+    "explanation": {
+      "en": "Function limited due to under-voltage, stored once.",
+      "ro": "Funcționare limitată din cauza subtensiunii, stocată o singură dată."
+    },
+    "suggestion": {
+      "en": "Check battery health; keep a charger connected during head unit updates.",
+      "ro": "Verifică starea bateriei; menține un redresor conectat în timpul actualizărilor unității."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "00109",
+    "module": "42",
+    "severity": "low",
+    "explanation": {
+      "en": "Electrical fault in the left mirror turn signal lamp (L131).",
+      "ro": "Defecțiune electrică la lampa de semnalizare din oglinda stângă (L131)."
+    },
+    "suggestion": {
+      "en": "Check the mirror lamp and connector at the door.",
+      "ro": "Verifică lampa din oglindă și conectorul de la portieră."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "00131",
+    "module": "42",
+    "severity": "low",
+    "explanation": {
+      "en": "Intermittent electrical fault in the door handle / mirror light circuit (driver side).",
+      "ro": "Defecțiune electrică intermitentă în circuitul luminii de la mânerul portierei / oglindă (partea șoferului)."
+    },
+    "suggestion": {
+      "en": "Check wiring at the door hinge and the lamp.",
+      "ro": "Verifică cablajul din burduful portierei și lampa."
+    },
+    "source": "seed-edward-sample"
+  },
+  {
+    "code": "B10AF",
+    "module": "08",
+    "severity": "low",
+    "explanation": {
+      "en": "Internal fault of the air quality sensor.",
+      "ro": "Defecțiune internă a senzorului de calitate a aerului."
+    },
+    "suggestion": {
+      "en": "Comfort function only; a replacement sensor is the usual fix if you want it gone.",
+      "ro": "Funcție de confort; înlocuirea senzorului este soluția obișnuită dacă dorești rezolvarea definitivă."
+    },
+    "source": "seed-edward-sample"
+  }
+]
