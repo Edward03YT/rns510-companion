@@ -15,31 +15,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 12.15.0
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "pnpm"
+          cache: "npm"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Run linter
-        run: pnpm lint
+        run: npm run lint
 
       - name: Run typecheck
-        run: pnpm typecheck
+        run: npm run typecheck
 
       - name: Run tests
-        run: pnpm test
+        run: npm test
 
       - name: Validate data
-        run: pnpm validate:data
+        run: npm run validate:data
 
       - name: Run production build
-        run: pnpm build
+        run: npm run build

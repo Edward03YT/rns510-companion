@@ -14,9 +14,9 @@ A fast, lightweight, privacy-first companion web application for Volkswagen RNS 
 
 **rns510-companion** is built entirely with **React 19, Next.js (App Router), TypeScript (`strict`), and Tailwind CSS**.
 
-- **No backend, no database, no API routes.**
-- **100% Client-Side Privacy:** All log parsing, heuristics, and compatibility rules run inside the user's browser via web APIs (`FileReader`, standard DOM). Diagnostic logs, VINs, and serial numbers are never uploaded to any remote server.
-- **Deploy Target:** Fully static / serverless on **Vercel** or any static web host.
+- **Pure npm & standard React stack:** Zero legacy packaging, zero external database, zero server API routes.
+- **100% Client-Side Privacy:** All log parsing, heuristics, and compatibility rules run inside the user's browser via native web APIs (`FileReader`, standard DOM). Diagnostic logs, VINs, and serial numbers are never uploaded to any remote server.
+- **Deploy Target:** 1-click zero-config deployment on **Vercel** or any static hosting platform.
 
 ---
 
@@ -60,15 +60,10 @@ Click the button below to fork and deploy directly to Vercel:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 
-### Option 2: CLI Deploy
-Using `npm` or `pnpm`:
+### Option 2: CLI Deploy with npm
 ```bash
-# Using npm
 npm install -g vercel
 vercel
-
-# Using pnpm
-pnpm dlx vercel
 ```
 
 ---
@@ -77,25 +72,19 @@ pnpm dlx vercel
 
 ### Prerequisites
 - Node.js 20+ (v22+ recommended)
-- `npm` or `pnpm` (both fully supported)
+- `npm` (standard package manager)
 
 ### Commands
 
 ```bash
 # Install dependencies
 npm install
-# or
-pnpm install
 
 # Start development server
 npm run dev
-# or
-pnpm dev
 
 # Run Vitest test suite (23 unit tests)
 npm test
-# or
-pnpm test
 
 # Run ESLint check
 npm run lint

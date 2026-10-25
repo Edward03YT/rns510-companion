@@ -14,9 +14,9 @@ O aplicație web rapidă, sigură și confidențială dedicată posesorilor de u
 
 **rns510-companion** este dezvoltat integral cu **React 19, Next.js (App Router), TypeScript (`strict`) și Tailwind CSS**.
 
-- **Fără backend, fără baze de date, fără rute API pe server.**
+- **Format pur npm & React standard:** Fără unelte de împachetare vechi sau proprietare, fără baze de date, fără rute API pe server.
 - **Confidențialitate 100% în Browser:** Parsarea jurnalelor, euristica și regulile de compatibilitate se execută exclusiv pe dispozitivul tău prin intermediul API-urilor native de browser (`FileReader`, DOM). Jurnalele de diagnoză, seriile VIN și codurile de componente nu sunt transmise niciodată pe vreun server la distanță.
-- **Compatibil Vercel:** Poate fi implementat instantaneu pe Vercel ca site static de mare viteză.
+- **Optimizat pentru Vercel:** Poate fi implementat instantaneu pe Vercel ca site static de mare viteză cu un singur clic.
 
 ---
 
@@ -60,15 +60,10 @@ Apasă butonul de mai jos pentru a duplica și implementa direct pe Vercel:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 
-### Opțiunea 2: Implementare prin CLI
-Folosind `npm` sau `pnpm`:
+### Opțiunea 2: Implementare prin CLI cu npm
 ```bash
-# Folosind npm
 npm install -g vercel
 vercel
-
-# Folosind pnpm
-pnpm dlx vercel
 ```
 
 ---
@@ -77,25 +72,19 @@ pnpm dlx vercel
 
 ### Cerințe de sistem
 - Node.js 20+ (recomandat v22+)
-- `npm` sau `pnpm` (ambele sunt complet suportate)
+- `npm` (managerul standard de pachete)
 
 ### Comenzi utile
 
 ```bash
 # Instalare dependențe
 npm install
-# sau
-pnpm install
 
 # Rulare server local de dezvoltare
 npm run dev
-# sau
-pnpm dev
 
 # Rulare suita de teste Vitest (23 teste unitare)
 npm test
-# sau
-pnpm test
 
 # Verificare linting cu ESLint
 npm run lint

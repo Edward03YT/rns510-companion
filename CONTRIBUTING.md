@@ -7,7 +7,7 @@ Thank you for your interest in contributing to **rns510-companion**!
 1. **No Invented Data:** Fault explanations, firmware upgrade paths, and caveats must come from documented forum sources, TPIs, or verified community test results. For anything unknown, the system must say `unknown`, never a speculative guess.
 2. **No Copyrighted Files:** Under no circumstances should this repository host, distribute, link to, or reference direct download mirrors for copyrighted Volkswagen navigation maps or proprietary firmware binaries.
 3. **Client-Side Privacy:** All log processing must happen completely in the user's browser. No telemetry or server-side log uploads.
-4. **Code Quality:** All code comments must be in English with no diacritics. All tests (`pnpm test`), lint (`pnpm lint`), typechecks (`pnpm typecheck`), and data validation (`pnpm validate:data`) must pass before submitting a PR.
+4. **Code Quality:** All code comments must be in English with no diacritics. All tests (`npm test`), lint (`npm run lint`), typechecks (`npm run typecheck`), and data validation (`npm run validate:data`) must pass before submitting a PR.
 
 ---
 
@@ -30,7 +30,7 @@ All RNS 510 hardware, firmware, maps, and rules live in `data/rns510.json`.
 
 ### Required Sources
 
-Every rule MUST include at least one valid source with `title` and `url`. PRs adding rules without verifiable sources will be rejected by `pnpm validate:data`.
+Every rule MUST include at least one valid source with `title` and `url`. PRs adding rules without verifiable sources will be rejected by `npm run validate:data`.
 
 ---
 
@@ -38,23 +38,23 @@ Every rule MUST include at least one valid source with `title` and `url`. PRs ad
 
 ```bash
 # Install dependencies
-pnpm install
+npm install
 
 # Run dev server
-pnpm dev
+npm run dev
 
 # Run Vitest test suite
-pnpm test
+npm test
 
 # Run ESLint
-pnpm lint
+npm run lint
 
 # Run TypeScript type check
-pnpm typecheck
+npm run typecheck
 
 # Validate JSON data against Zod schemas
-pnpm validate:data
+npm run validate:data
 
 # Production build check
-pnpm build
+npm run build
 ```
